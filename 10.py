@@ -20,7 +20,6 @@ def read(filename: str) -> List[int]:
 
 def solve_part_one(data: List[int]) -> int:
 
-    # Get
     c = [y - x for x, y in zip(data, data[1:])]
     return c.count(1) * c.count(3)
 
@@ -28,12 +27,16 @@ def solve_part_one(data: List[int]) -> int:
 def solve_part_two(data):
 
     memo = dict()
+
+    # Remove the last value (last leaf of each possible branching)
     memo[data.pop()] = 1
 
-    # Cummulate result
+    # Go through values of tree backwards 
+    # At each node increment its children (even the ones that don't exist)
     for x in reversed(data):
         memo[x] = memo.get(x+1, 0) + memo.get(x+2, 0) + memo.get(x+3, 0)
 
+    # Returns root
     return memo[0]
 
 
