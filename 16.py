@@ -115,32 +115,6 @@ def remove_values(ticket_info_list, value):
         if value in ticket_info.values:
             ticket_info.remove_value(value)
 
-
-def group(options):
-    i = 0
-    groups = dict()
-    while i < len(options):
-        name, value = options[i]
-        if name in groups:
-            groups[name].append(value)
-        else:
-            groups[name] = [value]
-        i += 1
-    return groups
-                
-
-def check_columns(ranges, other, col):
-    r1, r2 = ranges
-    i1, j1 = r1.split('-')
-    i2, j2 = r2.split('-')
-
-    for row in other:
-        x1 = int(row[col]) in range(int(i1), int(j1) + 1)
-        x2 = int(row[col]) in range(int(i2), int(j2) + 1)
-        if not x1 and not x2:
-            return False
-    return True
-
  
 def validate_range(ticket_info_list, field):
     for ticket_info in ticket_info_list: 
