@@ -27,7 +27,7 @@ def solve(data: List[int], count: int) -> int:
         memory[init] = pos
         init = initnew
         pos += 1
-    
+
     return memory.index(count)
    
 
