@@ -2,7 +2,7 @@ from functools import reduce
 import operator
 
 
-def wrapping(l):
+def two_mins(l):
     l1 = min(l)
     l.remove(l1)
     l2 = min(l)
@@ -10,7 +10,7 @@ def wrapping(l):
 
 
 def ribbon(l):
-    x, y = wrapping(l[::])
+    x, y = two_mins(l[::])
     return 2*x + 2*y + reduce(operator.mul, l)
 
 
@@ -18,7 +18,7 @@ def ribbon(l):
 def part1():
     with open("input.txt", "r") as f:
         for l, w, h in [map(int, i.split('x')) for i in f.read().split('\n')[:-1]]:
-            yield 2*l*w + 2*w*h + 2*h*l + operator.mul(*wrapping([l, w, h]))
+            yield 2*l*w + 2*w*h + 2*h*l + operator.mul(*two_mins([l, w, h]))
 
 
 # PART 2
