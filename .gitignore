@@ -1,5 +1,3 @@
-# IGNORE ALL
 *
-
-# .py files
-!*.py
+!20??
+!??.py

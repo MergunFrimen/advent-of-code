@@ -1,5 +1,3 @@
-
-
 def get_nums(filename: str) -> None:
 
     f = open(filename, 'r')
