@@ -1,3 +1,6 @@
+from PIL import Image
+
+
 def turn1(g, p):
     x = list(map(int, p[1].split(',')))
     y = list(map(int, p[3].split(',')))
@@ -49,6 +52,15 @@ def part1():
                 turn1(g, p)
             if t == "toggle":
                 toggle1(g, p)
+
+    img  = Image.new(mode = "RGB", size = (1000, 1000))
+    pixels = img.load()
+    for i in range(1000):
+        for j in range(1000):
+            if g[i][j] == 1:
+                pixels [i,j] = (255, 255, 255)
+    img.show()
+
     return sum([sum(x) for x in g])
 
 
@@ -66,4 +78,4 @@ def part2():
 
 
 print(part1())
-print(part2())
+# print(part2())

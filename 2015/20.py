@@ -1,12 +1,15 @@
-x = 13
-i = 1
-l = []
+def part1(t):
+    s = 0
+    x = 0
+    while s < t:
+        s = 0
+        x += 1
+        for i in range(1, x+1):
+            if t % i == 0:
+                s += 10 * i
+        print(s)
+    return x
 
-while x > 0:
-    if x % i == 0:
-        l.append(i)
-        x -= 1*i
-    i += 1
 
-print(l)
-print(sum(map(lambda x : 1*x, l)))
+print(part1(33100000))
+print(part1(130))
