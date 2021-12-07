@@ -1,5 +1,5 @@
 def read():
-    with open("input.txt") as f:
+    with open("input/03.txt") as f:
         return f.read().split()
 
 

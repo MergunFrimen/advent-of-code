@@ -1,7 +1,7 @@
 from collections import defaultdict
 
 def read():
-    with open("input.txt") as f:
+    with open("input/05.txt") as f:
         return [[y.split(',') for y in x.split(" -> ")] for x in f.read().split('\n')[:-1]]
 
 def part(p):

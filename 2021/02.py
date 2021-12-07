@@ -1,5 +1,5 @@
 def read():
-    with open("input.txt") as f:
+    with open("input/02.txt") as f:
         return [x.split() for x in f.read().split('\n')[:-1]]
 
 

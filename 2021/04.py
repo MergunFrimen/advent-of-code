@@ -1,5 +1,5 @@
 def read():
-    with open("input.txt") as f:
+    with open("input/04.txt") as f:
         l = f.read().split('\n\n')
     numbers = [x for x in l[0].split(',')]
     boards = [b.split() for b in l[1:]]
