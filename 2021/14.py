@@ -1,34 +1,32 @@
 import re
-from collections import Counter
 
 def read():
     with open("input/14.txt") as f:
         m = f.read().split("\n\n")
-    return m[0], {k:v for k,v in re.findall("(\S+) -> (\S+)", m[1])}
+    return m[0], {k:v for k, v in re.findall("(\S+) -> (\S+)", m[1])}
 
-def part(max_depth):
-    template, rules = read()
-    template = [template[i:i+2] for i in range(len(template) - 1)]
-    count = {k:0 for k in set(rules.values())}
+def part(steps):
+    start, rules = read()
+    state = {k:0 for k in rules.keys()}
+    score = {k:0 for k in set(rules.values())}
 
-    i = -1
-    for x in template:
-        i = rec(rules, x, max_depth, 0, i + 1, count)
-        print(i)
+    # initialization
+    for i in range(len(start) - 1):
+        state[start[i:i+2]] += 1
+    for i in range(len(start)):
+        score[start[i]] += 1
 
-    print(count)
+    # counter
+    for _ in range(steps):
+        new_state = {k:0 for k in rules.keys()}
+        for k, v in state.items():
+            x = rules[k]
+            new_state[k[0] + x] += v
+            new_state[x + k[1]] += v
+            score[x] += v
+        state = new_state
 
-def rec(rules, x, max_depth, depth, i, count):
-    if depth == max_depth:
-        count[x[0]] += 1
-        if i == 3 * sum(2**i for i in range(max_depth + 1)) - 1:
-            count[x[1]] += 1
-        return i
-    
-    new = rules[x]
-    left, right = x[0] + new, new + x[1]
+    print(max(score.values()) - min(score.values()))
 
-    i = rec(rules, left, max_depth, depth + 1, i + 1, count)
-    return rec(rules, right, max_depth, depth + 1, i + 1, count)
-
-part(2)
+part(10)
+part(40)
