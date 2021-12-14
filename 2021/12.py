@@ -15,7 +15,7 @@ def create_graph():
 
 def part1():
     g = create_graph()
-    visited = []
+    # 1.
 
 def part2():
     m = read()
