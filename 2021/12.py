@@ -1,24 +1,20 @@
-def read():
-    with open("input/12.txt") as f:
-        return [x.split('-') for x in f.read().split()]
+from collections import defaultdict
 
-def create_graph():
-    m = read()
-    g = {k[0]:[] for k in m}
-    for f, t in m:
-        g[t] = []
-        g[f] = []
-    for f, t in m:
-        g[t].append(f)
-        g[f].append(t)
-    return g
+def rec(g, visited, revisit):
+    if visited[-1] == 'end':
+        return 1
+    s = 0
+    for child in g[visited[-1]]:
+        if child.isupper() or child not in visited:
+            s += rec(g, visited + [child], revisit)
+        elif child.islower() and child in visited and child != 'start' and revisit:
+            s += rec(g, visited + [child], False)
+    return s
 
-def part1():
-    g = create_graph()
-    # 1.
+g = defaultdict(list)
+for f, t in [x.split('-') for x in open("input/12.txt").read().split()]:
+    g[f].append(t)
+    g[t].append(f)
 
-def part2():
-    m = read()
-
-part1()
-part2()
+print(rec(g, ['start'], False))
+print(rec(g, ['start'], True))
