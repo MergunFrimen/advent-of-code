@@ -1,5 +1,7 @@
 # AOC 2021 PROGRESS
 
+## TODO
+
 - Day 16: Packet Decoder
 - Day 17: Trick Shot
 - Day 18: Snailfish
