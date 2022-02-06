@@ -4,7 +4,7 @@ def read():
     with open("input/18.txt") as f:
         return [[x for x in line] for line in f.read().split()]
 
-# NOTE: could be done with recursion
+# NOTE: could be done with recursion and a tree structure
 def explode(m):
     d = 0
     for i, x in enumerate(m):
