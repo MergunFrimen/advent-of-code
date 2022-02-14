@@ -1,5 +1,8 @@
 import re
 from collections import defaultdict
+import functools
+import itertools
+from collections import defaultdict
 
 def read():
     with open("input/21.txt") as f:
@@ -15,46 +18,39 @@ def part1():
         i += 1
     print(3 * i * min(scores))
 
-dim = {
-       3 : 1,
-       4 : 3,
-       5 : 6,
-       6 : 7,
-       7 : 6,
-       8 : 3,
-       9 : 1
-       }
-
 def move(position, s):
     position += s
     if position > 10:
         return position - 10
     return position
 
-def count(player_score, position, l, steps, possibility_amount, total):
-    if total >= 21:
-        player_score[steps] += possibility_amount
-        return
-    for s, o in dim.items():
-        new_position = move(position, s)
-        count(player_score, new_position, l, steps + 1, possibility_amount * o, total + new_position)
+distribution = { 3:1, 4:3, 5:6, 6:7, 7:6, 8:3, 9:1 }
 
-def compare(p1, p2):
-    wins = [0, 0]
-    for k1, v1 in p1.items():
-        for k2, v2 in p2.items():
-            if k1 <= k2:
-                wins[0] += v1 * v2
-            if k1 > k2:
-                wins[1] += v1 * v2
-    print(wins)
+def count(i, w, t1, t2, p1, p2, o1, o2):
+    if t1 >= 10:
+        w[i] += o1
+        return
+    for k, v in distribution.items():
+        np = move(p1, k)
+        count((i + 1) % 2, w, t2, t1 + np, p2, np, o2, o1 * v)
+
+@functools.lru_cache(maxsize=None)
+def count(p1, p2, s1, s2):
+    if s1 >= 21:
+        return 1, 0
+    if s2 >= 21:
+        return 0, 1
+    w1, w2 = 0, 0
+    for x in itertools.product((1, 2, 3), (1, 2, 3), (1, 2, 3)):
+        p1_copy = move(p1, sum(x))
+        w2_copy, w1_copy = count(p2, p1_copy, s2, s1 + p1_copy)
+        w1 += w1_copy
+        w2 += w2_copy
+    return w1, w2
 
 def part2():
-    s1, s2 = read()
-    p1, p2 = defaultdict(int), defaultdict(int)
-    count(p1, s1, [], 0, 1, 0)
-    count(p2, s2, [], 0, 1, 0)
-    compare(p1, p2)
+    p1, p2 = read()
+    print(max(count(p1, p2, 0, 0)))
 
 part1()
 part2()
