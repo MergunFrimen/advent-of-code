@@ -2,15 +2,21 @@
 
 def get_data():
     with open('input.txt') as f:
-        pass
+        return f.read().split()[0]
+
+
+def markers(data, amount):
+    for i in range(len(data)):
+        if len(set(data[i:i+amount])) == amount:
+            return i + amount
 
 
 def part1(data):
-    pass
+    return markers(data, 4)
 
 
 def part2(data):
-    pass
+    return markers(data, 14)
 
 
 def main():
