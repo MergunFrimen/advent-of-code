@@ -7,24 +7,26 @@ def get_data():
 
 
 def create_metadata(data):
-    cwd = ''
+    cwd = []
     metadata = {}
     ls = False
+    
     for line in data[1:]:
         if line[0] == '$' and line[2:4] == 'cd':
             _, _, dirname = line.split()
             if dirname == '..':
-                cwd = '/'.join(cwd.split('/')[:-1])
+                cwd.pop()
             else:
-                cwd += '/' + dirname
+                cwd += [dirname]
             ls = False
         if line[0] == '$' and line[2:4] == 'ls':
             ls = True
             continue
         if ls:
             info, name = line.split()
-            path = cwd + '/' + name
+            path = ('/' if cwd else '') + '/'.join(cwd) + '/' + name
             metadata[path] = info
+    
     return metadata
 
 
