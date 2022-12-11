@@ -1,3 +1,4 @@
+# from _ import _
 
 
 def get_data():
@@ -14,8 +15,7 @@ def part2(data):
 
 
 def main():
-    data = get_data()
-    print(f'part1: {part1(data)}')
-    print(f'part2: {part2(data)}')
+    print(f'part1: {part1(get_data())}')
+    print(f'part2: {part2(get_data())}')
 
 main()
