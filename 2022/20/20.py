@@ -3,11 +3,29 @@
 
 def get_data():
     with open('input.txt') as f:
-        pass
+        return list(map(int, f.read().split()))
 
 
 def part1(data):
-    pass
+    n = len(data)
+    m = list(range(n))
+    p = list(range(n))
+
+    for _ in range(1):
+        for i in range(n):
+            i = m[i]
+            if data[i] < 0:
+                negative = True
+                v = data[i] % n - n
+            else:
+                negative = False
+                v = data[i] % n
+            if negative:
+                for _ in range(abs(v)):
+                    p[i], p[i-1] = p[i-1], p[i]
+
+            
+
 
 
 def part2(data):
