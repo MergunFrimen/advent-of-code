@@ -1,8 +1,9 @@
-# from _ import _
+import os 
 
 
 def get_data():
-    with open('input.txt') as f:
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    with open(f'{dir_path}/input.txt') as f:
         pass
 
 
