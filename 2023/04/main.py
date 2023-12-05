@@ -11,6 +11,7 @@ def get_data():
         for row in data:
             match = re.findall(pattern, row)
             num, left, right = match[0][0], match[0][1], match[0][2]
+            num = int(num)
             left = [int(x) for x in left.split() if x.isdigit()]
             right = [int(x) for x in right.split() if x.isdigit()]
             result.append((num, set(left), right))
@@ -32,7 +33,18 @@ def part1(data):
 
 
 def part2(data):
-    pass
+    total = 0
+    counts = {x[0]:1 for x in data}
+    for num, left, right in data:
+        exp = 0
+        for x in right:
+            if x in left:
+                exp += 1
+        if exp > 0:
+            total += 2**(exp - 1)
+            for i in range(1, exp + 1):
+                counts[num + i] += counts[num]
+    return sum(counts.values())
 
 
 def main():
